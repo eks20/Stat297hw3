@@ -7,12 +7,14 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+```{r results='hide', message=FALSE, warning=FALSE,echo=FALSE}
+library(stat297)
+```
 
 
 #Problem #1
 
 ```{r}
-library(stat297)
 find.pi = function (B = 5000,seed=10,make_plot=TRUE){
   if (make_plot == TRUE){
     #Plot Template Generated
