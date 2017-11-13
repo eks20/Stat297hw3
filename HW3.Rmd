@@ -8,22 +8,49 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+#Problem #1
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+library(stat297)
+find.pi = function (B = 5000,seed=10,make_plot=TRUE){
+  if (make_plot == TRUE){
+    #Plot Template Generated
+    plot(NA, xlim = c(-1.1,1.1), ylim = c(-1.1,1.1), xlab = "x", ylab = "y")
+    grid()
+    cols = hcl(h = seq(15, 375, length = 3), l = 65, c = 100, alpha = 0.2)[1:2]
+    make_square(col="blue")
+    points(0.8, 0.9, pch = 16, col = cols[1])
+    points(0, 0, pch = 16, col = cols[2])
+    make_circle(col="red")
+    #Monte Carlo Simulation
+    set.seed(seed)
+    point = matrix(runif(2*B,-1,1),B,2)
+    count = 0
+    for (i in 1:B){
+      if (point[i,1]^2+point[i,2]^2<=1) {
+        #Plots if inside
+        count = count + 1
+        x.point=point[i,1]
+        y.point=point[i,2]
+        points(x.point,y.point,col="Cyan",pch=19)
+      }else{
+        #Plots if outside
+        x.point=point[i,1]
+        y.point=point[i,2]
+        points(x.point,y.point,col="Pink",pch=19)}
+        }
+    hat.pi = 4*(count/B)
+    return(hat.pi)  
+  }else{
+    #Monte Carlo Simulation
+    set.seed(seed)
+    count = 0
+    point = matrix(runif(2*B,-1,1),B,2)
+    for (i in 1:B){if (point[i,1]^2+point[i,2]^2<=1){count = count + 1}}
+    hat.pi = 4*(count/B)
+    return(hat.pi)
+    }
+}
+find.pi(make_plot=TRUE)
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
