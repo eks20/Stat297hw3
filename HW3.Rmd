@@ -18,6 +18,7 @@ library(stat297)
 find.pi = function (B = 5000,seed=10,make_plot=TRUE){
   if (make_plot == TRUE){
     #Plot Template Generated
+    par(pty="s")
     plot(NA, xlim = c(-1.1,1.1), ylim = c(-1.1,1.1), xlab = "x", ylab = "y")
     grid()
     cols = hcl(h = seq(15, 375, length = 3), l = 65, c = 100, alpha = 0.2)[1:2]
