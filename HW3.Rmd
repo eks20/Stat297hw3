@@ -55,4 +55,5 @@ find.pi = function (B = 5000,seed=10,make_plot=TRUE){
     }
 }
 find.pi(make_plot=TRUE)
+find.pi(B=10^8,make_plot=FALSE)
 ```
