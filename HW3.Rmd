@@ -35,12 +35,12 @@ find.pi = function (B = 5000,seed=10,make_plot=TRUE){
         count = count + 1
         x.point=point[i,1]
         y.point=point[i,2]
-        points(x.point,y.point,col="Cyan",pch=19)
+        points(x.point,y.point,col=rgb(0,1,1, alpha=0.2),pch=19)
       }else{
         #Plots if outside
         x.point=point[i,1]
         y.point=point[i,2]
-        points(x.point,y.point,col="Pink",pch=19)}
+        points(x.point,y.point,col=rgb(1,0,0, alpha=0.1),pch=19)}
         }
     hat.pi = 4*(count/B)
     return(hat.pi)  
