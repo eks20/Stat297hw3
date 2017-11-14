@@ -58,3 +58,44 @@ find.pi = function (B = 5000,seed=10,make_plot=TRUE){
 find.pi(make_plot=TRUE)
 find.pi(B=10^8,make_plot=FALSE)
 ```
+
+#Problem #2
+
+```{r}
+get_position = function(distance){
+  n = nrow(distance)
+  out=matrix(0,n,3)
+  for(i in 1:n){
+    d = distance[i,]
+    Theta = c(0,0,0)
+    xy = matrix(c(-300,300,0,300,300,-300),3,2)
+    lst_sq = function(Theta, xy=xy, d=d){
+      calc = ((xy[1,1]-Theta[1])^2+(xy[1,2]-Theta[2])^2-(d[1]-Theta[3])^2)^2+
+        ((xy[2,1]-Theta[1])^2+(xy[2,2]-Theta[2])^2-(d[2]-Theta[3])^2)^2+
+        ((xy[3,1]-Theta[1])^2+(xy[3,2]-Theta[2])^2-(d[3]-Theta[3])^2)^2
+      return(calc)
+    }
+    out[i,] = optim(Theta, fn = lst_sq, d = d, xy=xy)$par
+  }
+  class(out) = "mylm"
+  return(out)
+}
+
+summary.mylm = function(obj){
+  n = nrow(obj)
+  for(i in 1:n){
+    cat(paste("x = ", round(obj[i,1],4),"y = ", 
+              round(obj[i,2],4),"\n", sep = " "))
+    
+  }
+}
+
+plot.mylm=function(obj){
+  obj = obj[,1:2]
+  points(obj[,1], obj[,2],pch =4, col = "orange")
+}
+
+add_point = get_position(dist_mat)
+summary(add_point)
+plot(add_point)
+```
