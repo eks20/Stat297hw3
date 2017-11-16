@@ -34,14 +34,10 @@ find.pi = function (B = 5000,seed=10,make_plot=TRUE){
       if (point[i,1]^2+point[i,2]^2<=1) {
         #Plots if inside
         count = count + 1
-        x.point=point[i,1]
-        y.point=point[i,2]
-        points(x.point,y.point,col=rgb(0,1,1, alpha=0.2),pch=19)
+        points(point[i,1],point[i,2],col=rgb(0,1,1, alpha=0.2),pch=19)
       }else{
         #Plots if outside
-        x.point=point[i,1]
-        y.point=point[i,2]
-        points(x.point,y.point,col=rgb(1,0,0, alpha=0.1),pch=19)}
+        points(point[i,1],point[i,2],col=rgb(1,0,0, alpha=0.1),pch=19)}
         }
     hat.pi = 4*(count/B)
     return(hat.pi)  
@@ -65,11 +61,10 @@ find.pi(B=10^8,make_plot=FALSE)
 ```{r}
 get_position = function(distance){
   if (is.matrix(distance)==FALSE && length(distance)%%3 == 0){
-    distance=matrix(c(distance),ncol=3,nrow=(length(distance))/3)
+    distance=matrix(c(distance),ncol=3,nrow=(length(distance))/3,byrow=T)
   }else if (length(distance)%%3!=0){
     return(warning("Input is a vector and of invalid length"))
   }
-  
   n = nrow(distance)
   out=matrix(0,n,3)
   for(i in 1:n){
@@ -90,9 +85,9 @@ get_position = function(distance){
 
 summary.mylm = function(obj){
   n = nrow(obj)
-  print("## The estimated position is:")
+  print("The estimated position is:")
   for(i in 1:n){
-    cat(paste("##","X = ", round(obj[i,1],4),",","Y = ", 
+    cat(paste("X = ", round(obj[i,1],4),",","Y = ", 
               round(obj[i,2],4),"\n", sep = " "))
     
   }
